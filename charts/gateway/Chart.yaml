@@ -1,4 +1,4 @@
 apiVersion: v2
 name: gateway
 description: Helm chart for gateway
-version: 1.0.0
+version: 1.1.0
