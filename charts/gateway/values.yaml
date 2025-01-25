@@ -1,0 +1,12 @@
+replicaCount: 1
+image:
+  repository: docker.io/yuvarajengineer/gateway
+  tag: main
+  pullPolicy: IfNotPresent
+service:
+  type: ClusterIP
+  port: 8080
+ingress:
+  enabled: true
+  hostname: gateway.chaos.com
+resources: {}

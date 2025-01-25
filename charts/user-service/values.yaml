@@ -1,0 +1,12 @@
+replicaCount: 1
+image:
+  repository: docker.io/yuvarajengineer/user-service
+  tag: main
+  pullPolicy: IfNotPresent
+service:
+  type: ClusterIP
+  port: 8081
+ingress:
+  enabled: true
+  hostname: user-service.chaos.com
+resources: {}
