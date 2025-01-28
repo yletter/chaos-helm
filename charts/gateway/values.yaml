@@ -8,5 +8,5 @@ service:
   port: 8080
 ingress:
   enabled: true
-  hostname: *.amazonaws.com
+  hostname: "*.amazonaws.com"
 resources: {}

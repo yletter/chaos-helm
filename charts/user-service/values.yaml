@@ -7,6 +7,6 @@ service:
   type: ClusterIP
   port: 8081
 ingress:
-  enabled: true
-  hostname: *.amazonaws.com
+  enabled: false
+  hostname: "*.amazonaws.com"
 resources: {}
