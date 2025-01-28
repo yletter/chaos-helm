@@ -7,6 +7,6 @@ service:
   type: LoadBalancer
   port: 8080
 ingress:
-  enabled: true
+  enabled: false
   hostname: gateway.chaos.com
 resources: {}
