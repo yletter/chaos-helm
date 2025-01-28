@@ -7,6 +7,6 @@ service:
   type: ClusterIP
   port: 8081
 ingress:
-  enabled: false
-  hostname: user-service.chaos.com
+  enabled: true
+  hostname: *.amazonaws.com
 resources: {}
