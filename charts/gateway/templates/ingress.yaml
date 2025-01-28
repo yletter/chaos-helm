@@ -6,8 +6,8 @@ metadata:
   namespace: {{ .Release.Namespace }}
 spec:
   rules:
-  - host: {{ .Values.ingress.hostname }}
-    http:
+#  - host: {{ .Values.ingress.hostname }}
+  -  http:
       paths:
       - path: /
         pathType: Prefix
