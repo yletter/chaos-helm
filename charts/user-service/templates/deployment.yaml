@@ -23,19 +23,19 @@ spec:
         livenessProbe:
           httpGet:
             path: /manage/health
-            port: 8080
+            port: 8081
           initialDelaySeconds: 5
           periodSeconds: 10
         readinessProbe:
           httpGet:
             path: /manage/health
-            port: 8080
+            port: 8081
           initialDelaySeconds: 3
           periodSeconds: 5
         startupProbe:
           httpGet:
             path: /manage/health
-            port: 8080
+            port: 8081
           failureThreshold: 30
           periodSeconds: 5
 
