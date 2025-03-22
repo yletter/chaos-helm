@@ -1,3 +1,4 @@
+targetSystem: "linux"
 datadog:
   apiKeyExistingSecret: "datadog-secret"
   clusterName: chaos-cluster
@@ -7,10 +8,18 @@ datadog:
   apm:
     instrumentation:
       enabled: true
+      language_detection:
+        enabled: true
       libVersions:
          java: "1"
-    portEnabled: true
-    socketEnabled: false
+    useSocketVolume: false
+    socketPath: /var/run/datadog/apm.socket
+    hostSocketPath: /var/run/datadog/
+    portEnabled: false
+    socketEnabled: true
+    enabled: true
+    port: 8126
+
   logs:
     containerCollectAll: false
     enabled: false
