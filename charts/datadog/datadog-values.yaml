@@ -8,7 +8,9 @@ datadog:
   apm:
     portEnabled: true
     socketEnabled: false
-
+  clusterAgent:
+    replicas: 2
+    createPodDisruptionBudget: true
   logs:
     containerCollectAll: false
     enabled: false
