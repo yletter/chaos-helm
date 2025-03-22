@@ -1,23 +1,15 @@
-targetSystem: "linux"
-clusterAgent:
-  replicas: 2
-  createPodDisruptionBudget: true
 datadog:
-  apiKeyExistingSecret: "datadog-secret"
   clusterName: chaos-cluster
-  site: "datadoghq.com"
-  tags:
-    - env: prod
+  apiKeyExistingSecret: "datadog-secret"
+  site: datadoghq.com
   apm:
     portEnabled: true
-    socketEnabled: false
+    socketEnabled: false 
   logs:
-    containerCollectAll: false
     enabled: false
+    containerCollectAll: false
   processAgent:
     processCollection: true
-  orchestratorExplorer:
-    enabled: true
   dogstatsd:
     useHostPort: true
   kubelet:
@@ -25,21 +17,20 @@ datadog:
   networkMonitoring:
     enabled: true
   securityAgent:
-    runtime:
-      enabled: false
     compliance:
       enabled: false
-  agents:
-    tolerations:
-      - key: node-role.kubernetes.io/control-plane
-        operator: Exists
-        effect: NoSchedule
-      - key: node-role.kubernetes.io/master
-        operator: Exists
-        effect: NoSchedule
-  clusterAgent:
+    runtime:
+      enabled: false
+agents:
+  tolerations:
+    - key: node-role.kubernetes.io/control-plane
+      operator: Exists
+      effect: NoSchedule
+    - key: node-role.kubernetes.io/master
+      operator: Exists
+      effect: NoSchedule
+clusterAgent:
+  enabled: true
+  admissionController:
     enabled: true
-    admissionController:
-      enabled: true
-      mutateUnlabelled: true
-  
+    mutateUnlabelled: true
