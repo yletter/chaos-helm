@@ -6,19 +6,8 @@ datadog:
   tags:
     - env: prod
   apm:
-    instrumentation:
-      enabled: true
-      language_detection:
-        enabled: true
-      libVersions:
-         java: "1"
-    useSocketVolume: false
-    socketPath: /var/run/datadog/apm.socket
-    hostSocketPath: /var/run/datadog/
-    portEnabled: false
-    socketEnabled: true
-    enabled: true
-    port: 8126
+    portEnabled: true
+    socketEnabled: false
 
   logs:
     containerCollectAll: false
