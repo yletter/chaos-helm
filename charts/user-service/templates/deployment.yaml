@@ -15,7 +15,7 @@ spec:
   template:
     metadata:
       annotations:
-        admission.datadoghq.com/java-lib.version: v1.46.1      
+        admission.datadoghq.com/java-lib.version: v1.46.1
       labels:
         app: {{ .Chart.Name }}
         admission.datadoghq.com/enabled: "true"
