@@ -7,8 +7,6 @@ metadata:
     tags.datadoghq.com/env: prod
     tags.datadoghq.com/service: user-service
     tags.datadoghq.com/version: "1.0"
-        tags.datadoghq.com/version: "1.0"
-          value: datadog-agent.datadog.svc.cluster.local
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
@@ -23,6 +21,7 @@ spec:
         admission.datadoghq.com/enabled: "true"
         tags.datadoghq.com/env: prod
         tags.datadoghq.com/service: user-service
+        tags.datadoghq.com/version: "1.0"
     spec:
       containers:
       - name: {{ .Chart.Name }}
