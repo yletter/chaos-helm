@@ -1,0 +1,39 @@
+registry: "gcr.io/datadoghq"
+datadog:
+  apiKeyExistingSecret: "datadog-secret"
+  site: "datadoghq.com"
+  apm:
+    portEnabled: true
+	socketEnabled: false
+  logs:
+    containerCollectAll: false
+    enabled: false
+  processAgent:
+    processCollection: true
+  dogstatsd:
+    useHostPort: true
+  kubelet:
+    tlsVerify: false
+  networkMonitoring:
+    enabled: true
+  securityAgent:
+    runtime:
+      enabled: false
+    compliance:
+      enabled: false
+  serviceMonitoring:
+    enabled: false
+  agents:
+    tolerations:
+      - key: node-role.kubernetes.io/control-plane
+        operator: Exists
+        effect: NoSchedule
+      - key: node-role.kubernetes.io/master
+        operator: Exists
+        effect: NoSchedule
+  clusterAgent:
+    enabled: true
+    admissionController:
+      enabled: true
+      mutateUnlabelled: true
+  
