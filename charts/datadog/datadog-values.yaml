@@ -1,5 +1,6 @@
 datadog:
   apiKeyExistingSecret: "datadog-secret"
+  clusterName: chaos-cluster
   site: "datadoghq.com"
   apm:
     portEnabled: true
