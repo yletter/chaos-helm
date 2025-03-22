@@ -15,7 +15,7 @@ spec:
   template:
     metadata:
       annotations:
-        admission.datadoghq.com/java-lib.version: v1.47.2
+        admission.datadoghq.com/java-lib.version: v1.31.1
       labels:
         app: {{ .Chart.Name }}
         admission.datadoghq.com/enabled: "true"
@@ -30,8 +30,6 @@ spec:
         env:
         - name: DD_AGENT_HOST
           value: datadog-agent.datadog.svc.cluster.local
-        - name: DD_APM_ENABLED
-          value: "true"
         ports:
         - containerPort: {{ .Values.service.port }}
         livenessProbe:
