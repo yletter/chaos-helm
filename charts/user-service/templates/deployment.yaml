@@ -4,6 +4,11 @@ metadata:
   name: {{ .Chart.Name }}
   labels:
     app: {{ .Chart.Name }}
+    tags.datadoghq.com/env: prod
+    tags.datadoghq.com/service: user-service
+    tags.datadoghq.com/version: "1.0"
+        tags.datadoghq.com/version: "1.0"
+          value: datadog-agent.datadog.svc.cluster.local
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
@@ -11,13 +16,21 @@ spec:
       app: {{ .Chart.Name }}
   template:
     metadata:
+      annotations:
+        admission.datadoghq.com/java-lib.version: v1.46.1      
       labels:
         app: {{ .Chart.Name }}
+        admission.datadoghq.com/enabled: "true"
+        tags.datadoghq.com/env: prod
+        tags.datadoghq.com/service: user-service
     spec:
       containers:
       - name: {{ .Chart.Name }}
         image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
         imagePullPolicy: {{ .Values.image.pullPolicy }}
+        env:
+        - name: DD_AGENT_HOST
+          value: datadog-agent.datadog.svc.cluster.local
         ports:
         - containerPort: {{ .Values.service.port }}
         livenessProbe:
