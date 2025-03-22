@@ -2,7 +2,13 @@ datadog:
   apiKeyExistingSecret: "datadog-secret"
   clusterName: chaos-cluster
   site: "datadoghq.com"
+  tags:
+    - env: prod
   apm:
+    instrumentation:
+      enabled: true
+      libVersions:
+         java: "1"
     portEnabled: true
     socketEnabled: false
   logs:
