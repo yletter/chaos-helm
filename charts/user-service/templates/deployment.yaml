@@ -31,7 +31,7 @@ spec:
         - name: DD_AGENT_HOST
           value: datadog-agent.datadog.svc.cluster.local
         - name: DD_APM_ENABLED
-          value: true
+          value: "true"
         ports:
         - containerPort: {{ .Values.service.port }}
         livenessProbe:
