@@ -1,4 +1,7 @@
 targetSystem: "linux"
+clusterAgent:
+  replicas: 2
+  createPodDisruptionBudget: true
 datadog:
   apiKeyExistingSecret: "datadog-secret"
   clusterName: chaos-cluster
@@ -8,9 +11,6 @@ datadog:
   apm:
     portEnabled: true
     socketEnabled: false
-  clusterAgent:
-    replicas: 2
-    createPodDisruptionBudget: true
   logs:
     containerCollectAll: false
     enabled: false
