@@ -4,7 +4,7 @@ datadog:
   site: datadoghq.com
   apm:
     portEnabled: true
-    socketEnabled: false 
+    socketEnabled: false
   logs:
     enabled: false
     containerCollectAll: false
