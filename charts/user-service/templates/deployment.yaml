@@ -12,11 +12,14 @@ spec:
   selector:
     matchLabels:
       app: {{ .Chart.Name }}
+      name: {{ .Chart.Name }}
   template:
     metadata:
+      name: {{ .Chart.Name }}
       annotations:
         admission.datadoghq.com/java-lib.version: v1.31.1
       labels:
+        name: {{ .Chart.Name }}
         app: {{ .Chart.Name }}
         admission.datadoghq.com/enabled: "true"
         tags.datadoghq.com/env: prod
