@@ -4,7 +4,6 @@ metadata:
   name: {{ .Chart.Name }}
   labels:
     app: {{ .Chart.Name }}
-    name: {{ .Chart.Name }}
     tags.datadoghq.com/env: "prod"
     tags.datadoghq.com/service: "user-service"
     tags.datadoghq.com/version: "1.0"
@@ -13,18 +12,14 @@ spec:
   selector:
     matchLabels:
       app: {{ .Chart.Name }}
-      name: {{ .Chart.Name }}
   template:
     metadata:
       name: {{ .Chart.Name }}
       annotations:
-        name: {{ .Chart.Name }}
-        app: {{ .Chart.Name }}
-        admission.datadoghq.com/java-lib.version: "v1.31.1"
+        admission.datadoghq.com/java-lib.version: "v1.31.2"
       labels:
-        name: {{ .Chart.Name }}
-        app: {{ .Chart.Name }}
         admission.datadoghq.com/enabled: "true"
+        app: {{ .Chart.Name }}
         tags.datadoghq.com/env: "prod"
         tags.datadoghq.com/service: "user-service"
         tags.datadoghq.com/version: "1.0"
@@ -58,4 +53,7 @@ spec:
             port: 8081
           failureThreshold: 30
           periodSeconds: 5
-
+        securityContext:
+          readOnlyRootFilesystem: false
+          runAsNonRoot: true
+          
