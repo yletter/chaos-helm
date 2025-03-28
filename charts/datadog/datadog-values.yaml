@@ -4,8 +4,7 @@ datadog:
   site: datadoghq.com
   apm:
     portEnabled: true
-    socketPath: /var/run/datadog/apm.socket
-    hostSocketPath: /var/run/datadog/
+    socketEnabled: false
   logs:
     enabled: false
     containerCollectAll: false
