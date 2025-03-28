@@ -55,5 +55,4 @@ spec:
           periodSeconds: 5
         securityContext:
           readOnlyRootFilesystem: false
-          runAsNonRoot: true
-          
+       
