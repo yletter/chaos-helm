@@ -37,19 +37,20 @@ spec:
           httpGet:
             path: /manage/health
             port: 8081
-          initialDelaySeconds: 5
+          initialDelaySeconds: 30
           periodSeconds: 10
         readinessProbe:
           httpGet:
             path: /manage/health
             port: 8081
-          initialDelaySeconds: 3
+          initialDelaySeconds: 30
           periodSeconds: 5
         startupProbe:
           httpGet:
             path: /manage/health
             port: 8081
           failureThreshold: 30
+          initialDelaySeconds: 30
           periodSeconds: 5
         securityContext:
           readOnlyRootFilesystem: false
