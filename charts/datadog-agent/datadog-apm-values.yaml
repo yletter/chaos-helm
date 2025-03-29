@@ -7,6 +7,12 @@ datadog:
     - "env:prod"
   apm:
     portEnabled: true
+    instrumentation:
+      enabled: true
+      enabledNamespaces:
+        - "app"
+      libVersions:
+        java: "1.47.3"
 clusterAgent:
   admissionController:
     enabled: true
