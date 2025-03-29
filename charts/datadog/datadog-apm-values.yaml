@@ -1,0 +1,14 @@
+registry: "public.ecr.aws/datadog"
+datadog:
+  clusterName: chaos-cluster
+  apiKeyExistingSecret: "datadog-secret"
+  site: "datadoghq.com"
+  tags:
+    - "env:prod"
+  apm:
+    instrumentation:
+      enabled: true
+      enabledNamespaces:
+        - "app"
+      libVersions:
+        java: "1.47.3"
