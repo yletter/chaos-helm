@@ -30,7 +30,7 @@ spec:
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         env:
         - name: DD_AGENT_HOST
-          value: datadog.datadog.svc.cluster.local
+          value: datadog.dd.svc.cluster.local
         ports:
         - containerPort: {{ .Values.service.port }}
         livenessProbe:
