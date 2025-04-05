@@ -37,10 +37,21 @@ jobs:
   k8s-setup:
     runs-on: ubuntu-latest
     steps:
-
+    - name: Where am I?
+      run: |
+        echo "Current directory: $(pwd)"
+        ls -l
+        ls -R
+    
     - name: Checkout code
       uses: actions/checkout@v2
 
+    - name: Where am I?
+      run: |
+        echo "Current directory: $(pwd)"
+        ls -l
+        ls -R
+       
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
@@ -48,6 +59,12 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: us-east-1
 
+    - name: Where am I?
+      run: |
+        echo "Current directory: $(pwd)"
+        ls -l
+        ls -R
+    
     - name: Init K8s and Helm
       run: |
         aws eks update-kubeconfig --region us-east-1 --name chaos-cluster
