@@ -131,4 +131,5 @@ jobs:
         --from-literal=MYSQL_USER=$DB_USER \
         --from-literal=MYSQL_PASSWORD=$DB_PASS -n app
         kubectl apply -f db-init/k8s-db-init-job.yaml -n app
+        sleep 60
         kubectl get jobs -n app
