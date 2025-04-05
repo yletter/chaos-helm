@@ -7,9 +7,6 @@ on:
 jobs:
   k8s-cleanup:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./k8s-cleanup
     steps:
 
     - name: Configure AWS Credentials

@@ -36,9 +36,6 @@ on:
 jobs:
   k8s-setup:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./k8s-setup
     steps:
 
     - name: Checkout code
