@@ -60,7 +60,6 @@ jobs:
         aws-region: us-east-1
 
     - name: Where am I?
-      working-directory: chaos-helm
       run: |
         echo "Current directory: $(pwd)"
         ls -l
