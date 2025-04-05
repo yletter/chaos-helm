@@ -7,7 +7,7 @@ spec:
     spec:
       containers:
       - name: init-db
-        image: docker.io/yuvarajengineer/init-db:main
+        image: docker.io/yuvarajengineer/batchuser:main
         env:
         - name: MYSQL_HOST
           valueFrom:
