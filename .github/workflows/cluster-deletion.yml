@@ -12,9 +12,6 @@ jobs:
         working-directory: ./k8s-cleanup
     steps:
 
-    - name: Checkout code
-      uses: actions/checkout@v2
-
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
@@ -22,7 +19,7 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: us-east-1
 
-    - name: Deploy Applications
+    - name: Delete Namespace
       run: |
         # Install Kubectl
         curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
