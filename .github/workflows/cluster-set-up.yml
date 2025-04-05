@@ -1,0 +1,106 @@
+name: Cluster Set Up
+
+on:
+  push:
+    branches:
+      - mainx  # Change this to your main branch name if different
+  repository_dispatch:
+    types: [trigger-k8s-set-up]
+  workflow_dispatch:
+    inputs:
+      run_step_namespeace:
+        description: 'Run Step Namespace?'
+        required: true
+        default: 'false'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+      run_step_datadog:
+        description: 'Run Step Datadog?'
+        required: true
+        default: 'false'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+      run_step_app:
+        description: 'Run Step App?'
+        required: true
+        default: 'false'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+    
+jobs:
+  k8s-setup:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./k8s-setup
+    steps:
+
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-east-1
+
+    - name: Deploy Applications
+      env:
+        DD_API_KEY: ${{ secrets.DD_API_KEY }}
+      run: |
+        aws eks update-kubeconfig --region us-east-1 --name chaos-cluster
+        # Install Kubectl
+        curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+        chmod +x kubectl
+        sudo mv kubectl /usr/local/bin/
+        kubectl version --client
+    
+        # Install Helm
+        curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+        helm version
+        helm repo add datadog https://helm.datadoghq.com
+        helm repo update
+
+        #cd ..
+        #mkdir deploy
+        #cd deploy
+        #git clone https://github.com/yletter/chaos-helm
+
+        cd chaos-helm
+        cd charts
+
+    - name: Create namespaces
+      if: ${{ inputs.run_step_namespace == 'true' }}
+      run: |
+        kubectl create namespace dd
+        kubectl create namespace app
+
+    - name: Init Datadog
+      if: ${{ inputs.run_step_datadog == 'true' }}
+      env:
+        DD_API_KEY: ${{ secrets.DD_API_KEY }}
+      run: |
+        kubectl create secret generic datadog-secret --from-literal api-key=$DD_API_KEY -n dd
+        helm upgrade datadog -f datadog-agent/datadog-apm-values.yaml datadog/datadog -n dd
+        sleep 120
+        kubectl get pods -A
+
+    - name: Init App
+      if: ${{ inputs.run_step_app == 'true' }}
+      run: |
+        helm upgrade --install gateway gateway -n app
+        helm upgrade --install user-service user-service -n app
+        kubectl get svc -n app
+        kubectl get deployments -n app
+        kubectl get svc -n dd
+        kubectl get deployments -n dd
+        sleep 60
+        kubectl get pods -A
+        
