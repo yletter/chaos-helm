@@ -37,21 +37,10 @@ jobs:
   k8s-setup:
     runs-on: ubuntu-latest
     steps:
-    - name: Where am I?
-      run: |
-        echo "Current directory: $(pwd)"
-        ls -l
-        ls -R
-    
+
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Where am I?
-      run: |
-        echo "Current directory: $(pwd)"
-        ls -l
-        ls -R
-       
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
@@ -59,12 +48,6 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: us-east-1
 
-    - name: Where am I?
-      run: |
-        echo "Current directory: $(pwd)"
-        ls -l
-        ls -R
-    
     - name: Init K8s and Helm
       run: |
         aws eks update-kubeconfig --region us-east-1 --name chaos-cluster
@@ -86,7 +69,7 @@ jobs:
         #git clone https://github.com/yletter/chaos-helm
 
         #cd chaos-helm
-        cd charts
+        #cd charts
 
     - name: Where am I?
       run: |
@@ -105,6 +88,7 @@ jobs:
       env:
         DD_API_KEY: ${{ secrets.DD_API_KEY }}
       run: |
+        cd charts
         kubectl create secret generic datadog-secret --from-literal api-key=$DD_API_KEY -n dd
         helm upgrade datadog -f datadog-agent/datadog-apm-values.yaml datadog/datadog -n dd
         sleep 120
@@ -113,6 +97,7 @@ jobs:
     - name: Init App
       if: ${{ inputs.run_step_app == 'true' }}
       run: |
+        cd charts
         helm upgrade --install gateway gateway -n app
         helm upgrade --install user-service user-service -n app
         kubectl get svc -n app
