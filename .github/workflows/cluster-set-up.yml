@@ -60,6 +60,7 @@ jobs:
         aws-region: us-east-1
 
     - name: Where am I?
+      working-directory: chaos-helm
       run: |
         echo "Current directory: $(pwd)"
         ls -l
@@ -85,8 +86,14 @@ jobs:
         #cd deploy
         #git clone https://github.com/yletter/chaos-helm
 
-        cd chaos-helm
+        #cd chaos-helm
         cd charts
+
+    - name: Where am I?
+      run: |
+        echo "Current directory: $(pwd)"
+        ls -l
+        ls -R
 
     - name: Create namespaces
       if: ${{ inputs.run_step_namespace == 'true' }}
