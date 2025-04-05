@@ -8,7 +8,7 @@ on:
     types: [trigger-k8s-set-up]
   workflow_dispatch:
     inputs:
-      run_step_namespeace:
+      run_step_namespace:
         description: 'Run Step Namespace?'
         required: true
         default: 'false'
