@@ -32,6 +32,14 @@ on:
         options:
           - 'true'
           - 'false'
+      run_step_init_db:
+        description: 'Run Step Init DB?'
+        required: true
+        default: 'false'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
     
 jobs:
   k8s-setup:
@@ -106,4 +114,21 @@ jobs:
         kubectl get deployments -n dd
         sleep 60
         kubectl get pods -A
-        
+
+    - name: Init DB
+      if: ${{ inputs.run_step_init_db == 'true' }}
+      env:
+        DB_USER: ${{ secrets.TF_VAR_MYSQL_USERNAME }}
+        DB_PASS: ${{ secrets.TF_VAR_MYSQL_PASSWORD }}
+      run: |
+        cd charts
+        export DB_HOST=$(aws rds describe-db-instances \
+        --db-instance-identifier chaosdatabase \
+        --query 'DBInstances[0].Endpoint.Address' \
+        --output text)
+        kubectl create secret generic mysql-secret \
+        --from-literal=MYSQL_HOST=$DB_HOST \
+        --from-literal=MYSQL_USER=$DB_USER \
+        --from-literal=MYSQL_PASSWORD=$DB_PASS -n app
+        kubectl apply -f db-init/k8s-db-init-job.yaml -n app
+        kubectl get jobs -n app
