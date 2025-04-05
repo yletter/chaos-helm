@@ -51,9 +51,7 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: us-east-1
 
-    - name: Deploy Applications
-      env:
-        DD_API_KEY: ${{ secrets.DD_API_KEY }}
+    - name: Init K8s and Helm
       run: |
         aws eks update-kubeconfig --region us-east-1 --name chaos-cluster
         # Install Kubectl
