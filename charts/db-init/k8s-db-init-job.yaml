@@ -25,6 +25,9 @@ spec:
               name: mysql-secret
               key: MYSQL_PASSWORD
         - name: MYSQL_PORT
-          value: "3306"
+          valueFrom:
+            configMapKeyRef:
+              name: db-init-config
+              key: MYSQL_PORT
       restartPolicy: Never
   backoffLimit: 2
