@@ -122,14 +122,6 @@ jobs:
         DB_PASS: ${{ secrets.TF_VAR_MYSQL_PASSWORD }}
       run: |
         cd charts
-        export DB_HOST=$(aws rds describe-db-instances \
-        --db-instance-identifier chaosdatabase \
-        --query 'DBInstances[0].Endpoint.Address' \
-        --output text)
-        kubectl create secret generic mysql-secret \
-        --from-literal=MYSQL_HOST=$DB_HOST \
-        --from-literal=MYSQL_USER=$DB_USER \
-        --from-literal=MYSQL_PASSWORD=$DB_PASS -n app
         kubectl apply -f db-init/k8s-db-init-config.yaml -n app
         kubectl apply -f db-init/k8s-db-init-job.yaml -n app
         sleep 60
