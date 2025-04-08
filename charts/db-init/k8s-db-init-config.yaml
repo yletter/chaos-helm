@@ -4,3 +4,7 @@ metadata:
   name: db-init-config
 data:
    MYSQL_PORT: "3306"
+   recs.txt: |
+     WXV2YXJhaix5dXZhcmFqQGV4YW1wbGUuY29tDQpQcmFkZWVwYSxwcmFkZWVwYUBleGFtcGxlLmNv
+     bQ0KS2FybmFuLGthcm5hbkBleGFtcGxlLmNvbQ0KVGhpdGhpa3NoYSx0aGlua3NoYUBleGFtcGxl
+     LmNvbQ0K
