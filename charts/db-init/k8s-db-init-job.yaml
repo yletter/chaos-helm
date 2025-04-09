@@ -9,11 +9,16 @@ spec:
         - name: config-volume
           configMap:
             name: db-init-config
+        - name: secret-volume
+          secret:
+            secretName: db-init-secret
       containers:
       - name: init-db
         image: docker.io/yuvarajengineer/batchuser:main
         volumeMounts:
           - name: config-volume
+            mountPath: /config2
+          - name: secret-volume
             mountPath: /config
         env:
         - name: MYSQL_HOST
