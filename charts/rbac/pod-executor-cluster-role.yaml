@@ -4,5 +4,5 @@ metadata:
   name: pod-executor-cluster-role
 rules:
 - apiGroups: [""]
-  verbs: ["exec", "get", "watch", "list"]
-  resources: ["pods", "pods/log"]
+  verbs: ["create", "get", "watch", "list"]
+  resources: ["pods/exec", "pods", "pods/log"]
