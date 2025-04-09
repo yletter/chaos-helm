@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: aws-auth-poc
+  namespace: kube-system
+data:
+  mapUsers: |
+    - userarn: arn:aws:iam::050451371849:user/pod-executor-cluster
+      username: pod-executor
+    - userarn: arn:aws:iam::050451371849:user/pod-reader
+      username: pod-reader-role
