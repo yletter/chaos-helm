@@ -5,9 +5,16 @@ metadata:
 spec:
   template:
     spec:
+      volumes:
+        - name: config-volume
+          configMap:
+            name: db-init-config
       containers:
       - name: init-db
         image: docker.io/yuvarajengineer/batchuser:main
+        volumeMounts:
+          - name: config-volume
+            mountPath: /config
         env:
         - name: MYSQL_HOST
           valueFrom:
